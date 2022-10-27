@@ -5,6 +5,8 @@ const app = express();
 
 require("dotenv").config();
 
+app.use(express.json());
+
 mongoose
   .connect(`${process.env.DATA_BASE_URL}`)
   .then(() => {
@@ -13,6 +15,8 @@ mongoose
   .catch((err) => {
     console.log("Could not connect to the database. Error...", err);
   });
+
+app.use("/auth", require("./routes/user"));
 
 const port = process.env.PORT || 5000;
 
